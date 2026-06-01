@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- スマホ対応 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>キャンパスマップ</title>
+
+  <!-- Leaflet -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+
+  <!-- style.cssと繋げる -->
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+
+  <!-- 上ボタン -->
+  <div class="top-buttons">
+    <button onclick="showCurrentLocation()">◎</button>
+    <button onclick="zoomIn()">+</button>
+    <button onclick="zoomOut()">−</button>
+  </div>
+
+  <!-- 地図 -->
+  <div id="map"></div>
+
+  <!-- 検索 -->
+  <div class="search-container">
+    <input
+      type="text"
+      id="searchBox"
+      class="search-box"
+      placeholder="建物名を入力"
+    >
+  </div>
+
+  <!-- places.jsとscript.jsと繋げる -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script src="places.js"></script>
+
+   <script src="script.js"></script>
+
+</body>
+</html>
