@@ -1,0 +1,400 @@
+<title>キャンパスマップ</title>
+
+<style>
+
+body{
+    margin:0;
+    overflow:hidden;
+    background:#333;
+    font-family:sans-serif;
+}
+
+#viewer{
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:grab;
+}
+
+#viewer:active{
+    cursor:grabbing;
+}
+
+#mapContainer{
+    position:relative;
+    transform-origin:center center;
+}
+
+#map{
+    display:block;
+    max-width:none;
+    user-select:none;
+    -webkit-user-drag:none;
+}
+
+/* 自販機マーカー */
+.marker{
+    position:absolute;
+    transform:translate(-50%,-50%);
+    font: size 31px;
+    z-index:100;
+    cursor:pointer;
+
+    width:20px;
+    height:20px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ボタン */
+.controls{
+    position:fixed;
+    top:10px;
+    left:10px;
+    z-index:1000;
+}
+
+button{
+    padding:10px 15px;
+    margin-right:5px;
+    margin-bottom:5px;
+    font-size:18px;
+    cursor:pointer;
+}
+
+/* 情報表示 */
+.info{
+    position:fixed;
+    bottom:15px;
+    left:15px;
+    background:white;
+    padding:10px;
+    border-radius:10px;
+    z-index:1000;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="controls">
+
+    <button onclick="zoomIn()">＋</button>
+    <button onclick="zoomOut()">－</button>
+
+    <button onclick="rotateLeft()">↺</button>
+    <button onclick="rotateRight()">↻</button>
+
+    <button onclick="resetView()">リセット</button>
+
+    <button id="toggleBtn"
+            onclick="toggleMarkers()">
+        自販機OFF
+    </button>
+
+</div>
+
+<div id="viewer">
+
+    <div id="mapContainer">
+
+        <img id="map"
+             src="daigakumap - コピー.jpg"
+             alt="大学マップ">
+
+    </div>
+
+</div>
+
+<div class="info" id="infoBox">
+    自販機をクリックしてください
+</div>
+
+<script>
+
+/* ==========================
+   自販機座標
+========================== */
+
+const vendingMachines = [
+    { x:377 , y:611 , name: "中部大学バス停" },
+    { x:290 , y:460 , name: "湯浅糸道ホール" },
+    { x:360 , y:432 , navigation: "AIKOKIKI HALL" },
+    { x:295 , y:348 , name: "TYK Dining" },
+    { x:355 , y:452 , name: "キャンパスプラザ1F（証明写真機横)"},
+    { x:418 , y:408 , name: "11号館南側" },
+    { x:210 , y:540, name: "21号館" },
+    { x:280 , y:393 , name: "体育館" },
+    { x:238 , y:408 , name: "プール受付前" },
+    { x:222 , y:418 , name: "クラブハウス棟1階" },
+    { x:201 , y:407 , name: "メイングラウンド" },
+    { x:128 , y:548 , name: "武道体育館前" }
+];
+
+/* ==========================
+   変数
+========================== */
+
+const mapContainer =
+document.getElementById("mapContainer");
+
+let scale = 1;
+let rotation = 0;
+let posX = 0;
+let posY = 0;
+
+let dragging = false;
+
+let startX;
+let startY;
+
+let markersVisible = true;
+
+/* ==========================
+   自販機生成
+========================== */
+
+function createMarkers(){
+
+    vendingMachines.forEach(vm => {
+
+        const marker =
+            document.createElement("div");
+
+        marker.className = "marker";
+
+        marker.style.left =
+            vm.x + "px";
+
+        marker.style.top =
+            vm.y + "px";
+
+        marker.innerHTML = "📍";
+
+        marker.onclick = (e)=>{
+
+            e.stopPropagation();
+
+            showInfo(vm.name);
+
+        };
+
+        mapContainer.appendChild(marker);
+
+    });
+
+}
+
+/* ==========================
+   自販機表示切替
+========================== */
+
+function toggleMarkers(){
+
+    const markers =
+        document.querySelectorAll(".marker");
+
+    const btn =
+        document.getElementById("toggleBtn");
+
+    markersVisible = !markersVisible;
+
+    markers.forEach(marker=>{
+
+        marker.style.display =
+            markersVisible
+            ? "block"
+            : "none";
+
+    });
+
+    btn.innerText =
+        markersVisible
+        ? "自販機OFF"
+        : "自販機ON";
+
+}
+
+/* ==========================
+   変形反映
+========================== */
+
+function updateTransform(){
+
+    mapContainer.style.transform =
+        `translate(${posX}px, ${posY}px)
+         scale(${scale})
+         rotate(${rotation}deg)`;
+
+}
+
+/* ==========================
+   ズーム
+========================== */
+
+function zoomIn(){
+
+    scale += 0.1;
+
+    if(scale > 10){
+        scale = 10;
+    }
+
+    updateTransform();
+
+}
+
+function zoomOut(){
+
+    scale -= 0.1;
+
+    if(scale < 0.2){
+        scale = 0.2;
+    }
+
+    updateTransform();
+
+}
+
+/* ホイールズーム */
+
+document.getElementById("viewer")
+.addEventListener("wheel",(e)=>{
+
+    e.preventDefault();
+
+    if(e.deltaY < 0){
+        scale += 0.1;
+    }
+    else{
+        scale -= 0.1;
+    }
+
+    if(scale < 0.2){
+        scale = 0.2;
+    }
+
+    if(scale > 10){
+        scale = 10;
+    }
+
+    updateTransform();
+
+});
+
+/* ==========================
+   ドラッグ移動
+========================== */
+
+document.getElementById("viewer")
+.addEventListener("mousedown",(e)=>{
+
+    dragging = true;
+
+    startX = e.clientX - posX;
+    startY = e.clientY - posY;
+
+});
+
+document.addEventListener("mousemove",(e)=>{
+
+    if(!dragging) return;
+
+    posX = e.clientX - startX;
+    posY = e.clientY - startY;
+
+    updateTransform();
+
+});
+
+document.addEventListener("mouseup",()=>{
+
+    dragging = false;
+
+});
+
+/* ==========================
+   回転
+========================== */
+
+function rotateLeft(){
+
+    rotation -= 15;
+
+    updateTransform();
+
+}
+
+function rotateRight(){
+
+    rotation += 15;
+
+    updateTransform();
+
+}
+
+/* ==========================
+   リセット
+========================== */
+
+function resetView(){
+
+    scale = 1;
+    rotation = 0;
+    posX = 0;
+    posY = 0;
+
+    updateTransform();
+
+}
+
+/* ==========================
+   情報表示
+========================== */
+
+function showInfo(text){
+
+    document.getElementById("infoBox")
+        .innerText = text;
+
+}
+
+/* ==========================
+   座標取得モード
+========================== */
+
+mapContainer.addEventListener("click",(e)=>{
+
+    const rect =
+        mapContainer.getBoundingClientRect();
+
+    const x = Math.round(
+        (e.clientX - rect.left) / scale
+    );
+
+    const y = Math.round(
+        (e.clientY - rect.top) / scale
+    );
+
+    console.log(
+        `座標 → x:${x}, y:${y}`
+    );
+
+});
+
+/* ==========================
+   初期化
+========================== */
+
+createMarkers();
+updateTransform();
+
+</script>
+
+</body>
+</html>
