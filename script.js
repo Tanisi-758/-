@@ -18,16 +18,20 @@
     const bounds = [[0, 0], [imageHeight, imageWidth]];
 
     // ===== キャンパスマップ画像 =====
-    L.imageOverlay('campus-map.png', bounds).addTo(map);
+    L.imageOverlay('campus-map2.png', bounds).addTo(map);
 
     map.fitBounds(bounds);
 
     // ===== 建物ピン =====
-    places.forEach(place => {
-      L.marker([place.y, place.x],{icon: smallIcon})
-        .addTo(map)
-        .bindPopup(place.name);
+places.forEach(place => {
+
+  L.marker([place.y, place.x], {icon: smallIcon})
+    .addTo(map)
+    .on("click", () => {
+      showFloorSelect(place);
     });
+
+});
     map.on('click', function(e) {
   alert(e.latlng);
 });
@@ -70,11 +74,22 @@
 
           map.setView([result.y, result.x], 1);
 
-          L.marker([result.y, result.x])
-            .addTo(map)
-            .bindPopup(result.name)
-            .openPopup();
+          if (result) {
 
+  map.setView([result.y, result.x], 1);
+
+    L.popup({
+      offset: [0, -20]
+    })
+    .setLatLng([result.y, result.x])
+    .setContent(result.name)
+    .openOn(map);
+
+} else {
+
+  alert("見つかりません");
+
+}
         } else {
 
           alert("見つかりません");
@@ -82,3 +97,52 @@
         }
       }
     });
+    function showFloorSelect(place){
+
+  document.getElementById("buildingTitle")
+    .textContent = place.name;
+
+  const floorButtons =
+    document.getElementById("floorButtons");
+
+  floorButtons.innerHTML = "";
+
+  for(const floor in place.floors){
+
+    const btn = document.createElement("button");
+
+    btn.textContent = floor;
+
+    btn.onclick = () => {
+      openFloorMap(place.floors[floor]);
+    };
+
+    floorButtons.appendChild(btn);
+  }
+
+  document.getElementById("floorSelect")
+    .style.display = "block";
+}
+
+function closeFloorSelect(){
+
+  document.getElementById("floorSelect")
+    .style.display = "none";
+}
+
+function openFloorMap(imagePath){
+
+  closeFloorSelect();
+
+  document.getElementById("floorImage").src =
+    imagePath;
+
+  document.getElementById("floorMapModal")
+    .style.display = "block";
+}
+
+function closeFloorMap(){
+
+  document.getElementById("floorMapModal")
+    .style.display = "none";
+}
