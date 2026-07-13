@@ -1,0 +1,912 @@
+const building_19_2IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（講義室・ラウンジ）: X座標を1540に統一
+    // ==========================================
+    { "id": "bldg19_2f_room_192D", "name": "192D", "type": "destination", "floor": 2, "x": 1540, "y": 1840 },
+    { "id": "bldg19_2f_room_192C", "name": "192C", "type": "destination", "floor": 2, "x": 1540, "y": 2820 },
+    { "id": "bldg19_2f_room_192B", "name": "192B", "type": "destination", "floor": 2, "x": 1540, "y": 3750 },
+    { "id": "bldg19_2f_room_192A", "name": "192A", "type": "destination", "floor": 2, "x": 1540, "y": 4700 },
+    { "id": "bldg19_2f_room_clocal", "name": "CLOCAL SEMINAR ROOM", "type": "destination", "floor": 2, "x": 1540, "y": 5520 },
+    { "id": "bldg19_2f_room_language", "name": "LANGUAGE LOUNGE", "type": "destination", "floor": 2, "x": 1540, "y": 6330 },
+
+    // ==========================================
+    // 階段
+    // ==========================================
+    { "id": "bldg19_2f_stairs_north", "name": "19_階段_北", "type": "stairs", "floor": 2, "x": 2060, "y": 1020 },
+    { "id": "bldg19_2f_stairs_south", "name": "19_階段_南", "type": "stairs", "floor": 2, "x": 3140, "y": 7470 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 他のマップへ繋がる点
+    // ==========================================
+    { "id": "bldg19_2f_portal_campplaza", "name": "キャンプラ接続口", "type": "portal", "floor": 2, "x": 230, "y": 7470 },
+    { "id": "bldg19_2f_portal_bldg30", "name": "30号館接続口", "type": "portal", "floor": 2, "x": 1090, "y": 560 },
+    { "id": "bldg19_2f_portal_bldg20", "name": "20号館接続口", "type": "portal", "floor": 2, "x": 460, "y": 1020 },
+    { "id": "bldg19_2f_portal_bldg7", "name": "7号館接続口", "type": "portal", "floor": 2, "x": 3850, "y": 7470 },
+
+    // ==========================================
+    // 廊下（通路）: 縦のメイン通路は X=1090、南の横通路は Y=7470 に統一
+    // ==========================================
+    { "id": "bldg19_2f_walk_01", "name": "北側交差点", "type": "walk", "floor": 2, "x": 1090, "y": 1020 },
+    { "id": "bldg19_2f_walk_02", "name": "通路", "type": "walk", "floor": 2, "x": 1090, "y": 1840 },
+    { "id": "bldg19_2f_walk_03", "name": "通路", "type": "walk", "floor": 2, "x": 1090, "y": 2820 },
+    { "id": "bldg19_2f_walk_04", "name": "通路", "type": "walk", "floor": 2, "x": 1090, "y": 3750 },
+    { "id": "bldg19_2f_walk_05", "name": "通路", "type": "walk", "floor": 2, "x": 1090, "y": 4700 },
+    { "id": "bldg19_2f_walk_06", "name": "通路", "type": "walk", "floor": 2, "x": 1090, "y": 5520 },
+    { "id": "bldg19_2f_walk_07", "name": "通路", "type": "walk", "floor": 2, "x": 1090, "y": 6330 },
+    { "id": "bldg19_2f_walk_08", "name": "南側交差点", "type": "walk", "floor": 2, "x": 1090, "y": 7470 },
+    { "id": "bldg19_2f_walk_09", "name": "南通路1", "type": "walk", "floor": 2, "x": 2080, "y": 7470 },
+    { "id": "bldg19_2f_walk_10", "name": "迂回通路1", "type": "walk", "floor": 2, "x": 2080, "y": 7030 },
+    { "id": "bldg19_2f_walk_11", "name": "迂回通路2", "type": "walk", "floor": 2, "x": 2630, "y": 7030 },
+    { "id": "bldg19_2f_walk_12", "name": "南通路2", "type": "walk", "floor": 2, "x": 2630, "y": 7470 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    // 北側の接続
+    { "from": "bldg19_2f_portal_bldg20", "to": "bldg19_2f_walk_01", "type": "walk" },
+    { "from": "bldg19_2f_walk_01", "to": "bldg19_2f_portal_bldg30", "type": "walk" },
+    { "from": "bldg19_2f_stairs_north", "to": "bldg19_2f_walk_01", "type": "walk" },
+    
+    // 縦のメイン廊下と各部屋への接続
+    { "from": "bldg19_2f_walk_01", "to": "bldg19_2f_walk_02", "type": "walk" },
+    { "from": "bldg19_2f_walk_02", "to": "bldg19_2f_room_192D", "type": "walk" },
+    { "from": "bldg19_2f_walk_02", "to": "bldg19_2f_walk_03", "type": "walk" },
+    { "from": "bldg19_2f_walk_03", "to": "bldg19_2f_room_192C", "type": "walk" },
+    { "from": "bldg19_2f_walk_03", "to": "bldg19_2f_walk_04", "type": "walk" },
+    { "from": "bldg19_2f_walk_04", "to": "bldg19_2f_room_192B", "type": "walk" },
+    { "from": "bldg19_2f_walk_04", "to": "bldg19_2f_walk_05", "type": "walk" },
+    { "from": "bldg19_2f_walk_05", "to": "bldg19_2f_room_192A", "type": "walk" },
+    { "from": "bldg19_2f_walk_05", "to": "bldg19_2f_walk_06", "type": "walk" },
+    { "from": "bldg19_2f_walk_06", "to": "bldg19_2f_room_clocal", "type": "walk" },
+    { "from": "bldg19_2f_walk_07", "to": "bldg19_2f_walk_06", "type": "walk" },
+    { "from": "bldg19_2f_walk_07", "to": "bldg19_2f_room_language", "type": "walk" },
+    { "from": "bldg19_2f_walk_07", "to": "bldg19_2f_walk_08", "type": "walk" },
+    
+    // 南側の横通路と外部接続
+    { "from": "bldg19_2f_portal_campplaza", "to": "bldg19_2f_walk_08", "type": "walk" },
+    { "from": "bldg19_2f_walk_08", "to": "bldg19_2f_walk_09", "type": "walk" },
+    { "from": "bldg19_2f_walk_09", "to": "bldg19_2f_walk_10", "type": "walk" },
+    { "from": "bldg19_2f_walk_10", "to": "bldg19_2f_walk_11", "type": "walk" },
+    { "from": "bldg19_2f_walk_11", "to": "bldg19_2f_walk_12", "type": "walk" },
+    { "from": "bldg19_2f_walk_12", "to": "bldg19_2f_stairs_south", "type": "walk" },
+    { "from": "bldg19_2f_stairs_south", "to": "bldg19_2f_portal_bldg7", "type": "walk" }
+  ]
+);
+const building_9_4IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（講義室）
+    // ==========================================
+    // 北側（Y: 1430に統一）
+    { "id": "bldg9_4f_room_949", "name": "949", "type": "destination", "floor": 4, "x": 1810, "y": 1430 },
+    { "id": "bldg9_4f_room_948", "name": "948", "type": "destination", "floor": 4, "x": 3000, "y": 1430 },
+    { "id": "bldg9_4f_room_947", "name": "947", "type": "destination", "floor": 4, "x": 5470, "y": 1430 },
+    
+    // 南側（Y: 2030に統一）
+    { "id": "bldg9_4f_room_946", "name": "946", "type": "destination", "floor": 4, "x": 6440, "y": 2030 },
+    { "id": "bldg9_4f_room_945", "name": "945", "type": "destination", "floor": 4, "x": 5310, "y": 2030 },
+    { "id": "bldg9_4f_room_944", "name": "944", "type": "destination", "floor": 4, "x": 4140, "y": 2030 },
+    { "id": "bldg9_4f_room_943", "name": "943", "type": "destination", "floor": 4, "x": 3150, "y": 2030 },
+    { "id": "bldg9_4f_room_942", "name": "942", "type": "destination", "floor": 4, "x": 2170, "y": 2030 },
+    { "id": "bldg9_4f_room_941", "name": "941", "type": "destination", "floor": 4, "x": 1020, "y": 2030 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 他のフロアへ繋がる階段とエレベーター
+    // ==========================================
+    { "id": "bldg9_4f_elevator", "name": "9_4_ele", "type": "portal", "floor": 4, "x": 6440, "y": 1600 },
+    { "id": "bldg9_4f_stairs_left", "name": "9_4_左階段", "type": "portal", "floor": 4, "x": 1020, "y": 1430 },
+    { "id": "bldg9_4f_stairs_center", "name": "9_4_中央階段", "type": "portal", "floor": 4, "x": 4510, "y": 1430 },
+    { "id": "bldg9_4f_stairs_right", "name": "9_4_右階段", "type": "portal", "floor": 4, "x": 6140, "y": 2030 },
+
+    // ==========================================
+    // メイン廊下（Y: 1750に完全統一、西から東へナンバリング）
+    // ==========================================
+    { "id": "bldg9_4f_walk_01", "name": "廊下_西端", "type": "walk", "floor": 4, "x": 1020, "y": 1750 },
+    { "id": "bldg9_4f_walk_02", "name": "廊下_949前", "type": "walk", "floor": 4, "x": 1810, "y": 1750 },
+    { "id": "bldg9_4f_walk_03", "name": "廊下_942前", "type": "walk", "floor": 4, "x": 2170, "y": 1750 },
+    { "id": "bldg9_4f_walk_04", "name": "廊下_948前", "type": "walk", "floor": 4, "x": 3000, "y": 1750 },
+    { "id": "bldg9_4f_walk_05", "name": "廊下_943前", "type": "walk", "floor": 4, "x": 3150, "y": 1750 },
+    { "id": "bldg9_4f_walk_06", "name": "廊下_中央西", "type": "walk", "floor": 4, "x": 3700, "y": 1750 },
+    { "id": "bldg9_4f_walk_07", "name": "廊下_中央", "type": "walk", "floor": 4, "x": 3710, "y": 1750 },
+    { "id": "bldg9_4f_walk_08", "name": "廊下_944前", "type": "walk", "floor": 4, "x": 4140, "y": 1750 },
+    { "id": "bldg9_4f_walk_09", "name": "廊下_中央階段前", "type": "walk", "floor": 4, "x": 4510, "y": 1750 },
+    { "id": "bldg9_4f_walk_10", "name": "廊下_945前", "type": "walk", "floor": 4, "x": 5310, "y": 1750 },
+    { "id": "bldg9_4f_walk_11", "name": "廊下_947前", "type": "walk", "floor": 4, "x": 5470, "y": 1750 },
+    { "id": "bldg9_4f_walk_12", "name": "廊下_右階段前", "type": "walk", "floor": 4, "x": 6140, "y": 1750 },
+    { "id": "bldg9_4f_walk_13", "name": "廊下_東端", "type": "walk", "floor": 4, "x": 6440, "y": 1750 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    // メイン廊下の横のつながり（西から東へ）
+    { "from": "bldg9_4f_walk_01", "to": "bldg9_4f_walk_02", "type": "walk" },
+    { "from": "bldg9_4f_walk_02", "to": "bldg9_4f_walk_03", "type": "walk" },
+    { "from": "bldg9_4f_walk_03", "to": "bldg9_4f_walk_04", "type": "walk" },
+    { "from": "bldg9_4f_walk_04", "to": "bldg9_4f_walk_05", "type": "walk" },
+    { "from": "bldg9_4f_walk_05", "to": "bldg9_4f_walk_06", "type": "walk" },
+    { "from": "bldg9_4f_walk_06", "to": "bldg9_4f_walk_07", "type": "walk" },
+    { "from": "bldg9_4f_walk_07", "to": "bldg9_4f_walk_08", "type": "walk" },
+    { "from": "bldg9_4f_walk_08", "to": "bldg9_4f_walk_09", "type": "walk" },
+    { "from": "bldg9_4f_walk_09", "to": "bldg9_4f_walk_10", "type": "walk" },
+    { "from": "bldg9_4f_walk_10", "to": "bldg9_4f_walk_11", "type": "walk" },
+    { "from": "bldg9_4f_walk_11", "to": "bldg9_4f_walk_12", "type": "walk" },
+    { "from": "bldg9_4f_walk_12", "to": "bldg9_4f_walk_13", "type": "walk" },
+
+    // 廊下から北側の部屋・階段へのつながり
+    { "from": "bldg9_4f_walk_01", "to": "bldg9_4f_stairs_left", "type": "walk" },
+    { "from": "bldg9_4f_walk_02", "to": "bldg9_4f_room_949", "type": "walk" },
+    { "from": "bldg9_4f_walk_04", "to": "bldg9_4f_room_948", "type": "walk" },
+    { "from": "bldg9_4f_walk_09", "to": "bldg9_4f_stairs_center", "type": "walk" },
+    { "from": "bldg9_4f_walk_11", "to": "bldg9_4f_room_947", "type": "walk" },
+    { "from": "bldg9_4f_walk_13", "to": "bldg9_4f_elevator", "type": "walk" },
+
+    // 廊下から南側の部屋・階段へのつながり
+    { "from": "bldg9_4f_walk_01", "to": "bldg9_4f_room_941", "type": "walk" },
+    { "from": "bldg9_4f_walk_03", "to": "bldg9_4f_room_942", "type": "walk" },
+    { "from": "bldg9_4f_walk_05", "to": "bldg9_4f_room_943", "type": "walk" },
+    { "from": "bldg9_4f_walk_08", "to": "bldg9_4f_room_944", "type": "walk" },
+    { "from": "bldg9_4f_walk_10", "to": "bldg9_4f_room_945", "type": "walk" },
+    { "from": "bldg9_4f_walk_12", "to": "bldg9_4f_stairs_right", "type": "walk" },
+    { "from": "bldg9_4f_walk_13", "to": "bldg9_4f_room_946", "type": "walk" }
+  ]
+);
+
+const building_9_5IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（講義室）
+    // ==========================================
+    // 北側（Y: 1430に統一）
+    { "id": "bldg9_5f_room_959", "name": "959", "type": "destination", "floor": 5, "x": 1810, "y": 1430 },
+    { "id": "bldg9_5f_room_958", "name": "958", "type": "destination", "floor": 5, "x": 3000, "y": 1430 },
+    { "id": "bldg9_5f_room_957", "name": "957", "type": "destination", "floor": 5, "x": 5470, "y": 1430 },
+    
+    // 南側（Y: 2030に統一）
+    { "id": "bldg9_5f_room_956", "name": "956", "type": "destination", "floor": 5, "x": 6440, "y": 2030 },
+    { "id": "bldg9_5f_room_955", "name": "955", "type": "destination", "floor": 5, "x": 5310, "y": 2030 },
+    { "id": "bldg9_5f_room_954", "name": "954", "type": "destination", "floor": 5, "x": 4140, "y": 2030 },
+    { "id": "bldg9_5f_room_953", "name": "953", "type": "destination", "floor": 5, "x": 3150, "y": 2030 },
+    { "id": "bldg9_5f_room_952", "name": "952", "type": "destination", "floor": 5, "x": 2170, "y": 2030 },
+    { "id": "bldg9_5f_room_951", "name": "951", "type": "destination", "floor": 5, "x": 1020, "y": 2030 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 他のフロアへ繋がる階段とエレベーター
+    // ==========================================
+    { "id": "bldg9_5f_elevator", "name": "9_5_ele", "type": "portal", "floor": 5, "x": 6440, "y": 1600 },
+    { "id": "bldg9_5f_stairs_left", "name": "9_5_左階段", "type": "portal", "floor": 5, "x": 1020, "y": 1430 },
+    { "id": "bldg9_5f_stairs_center", "name": "9_5_中央階段", "type": "portal", "floor": 5, "x": 4510, "y": 1430 },
+    { "id": "bldg9_5f_stairs_right", "name": "9_5_右階段", "type": "portal", "floor": 5, "x": 6140, "y": 2030 },
+
+    // ==========================================
+    // メイン廊下（Y: 1750に完全統一、西から東へナンバリング）
+    // ==========================================
+    { "id": "bldg9_5f_walk_01", "name": "廊下_西端", "type": "walk", "floor": 5, "x": 1020, "y": 1750 },
+    { "id": "bldg9_5f_walk_02", "name": "廊下_959前", "type": "walk", "floor": 5, "x": 1810, "y": 1750 },
+    { "id": "bldg9_5f_walk_03", "name": "廊下_952前", "type": "walk", "floor": 5, "x": 2170, "y": 1750 },
+    { "id": "bldg9_5f_walk_04", "name": "廊下_958前", "type": "walk", "floor": 5, "x": 3000, "y": 1750 },
+    { "id": "bldg9_5f_walk_05", "name": "廊下_953前", "type": "walk", "floor": 5, "x": 3150, "y": 1750 },
+    { "id": "bldg9_5f_walk_06", "name": "廊下_中央西", "type": "walk", "floor": 5, "x": 3700, "y": 1750 },
+    { "id": "bldg9_5f_walk_07", "name": "廊下_中央", "type": "walk", "floor": 5, "x": 3710, "y": 1750 },
+    { "id": "bldg9_5f_walk_08", "name": "廊下_954前", "type": "walk", "floor": 5, "x": 4140, "y": 1750 },
+    { "id": "bldg9_5f_walk_09", "name": "廊下_中央階段前", "type": "walk", "floor": 5, "x": 4510, "y": 1750 },
+    { "id": "bldg9_5f_walk_10", "name": "廊下_955前", "type": "walk", "floor": 5, "x": 5310, "y": 1750 },
+    { "id": "bldg9_5f_walk_11", "name": "廊下_957前", "type": "walk", "floor": 5, "x": 5470, "y": 1750 },
+    { "id": "bldg9_5f_walk_12", "name": "廊下_右階段前", "type": "walk", "floor": 5, "x": 6140, "y": 1750 },
+    { "id": "bldg9_5f_walk_13", "name": "廊下_東端", "type": "walk", "floor": 5, "x": 6440, "y": 1750 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    // メイン廊下の横のつながり（西から東へ）
+    { "from": "bldg9_5f_walk_01", "to": "bldg9_5f_walk_02", "type": "walk" },
+    { "from": "bldg9_5f_walk_02", "to": "bldg9_5f_walk_03", "type": "walk" },
+    { "from": "bldg9_5f_walk_03", "to": "bldg9_5f_walk_04", "type": "walk" },
+    { "from": "bldg9_5f_walk_04", "to": "bldg9_5f_walk_05", "type": "walk" },
+    { "from": "bldg9_5f_walk_05", "to": "bldg9_5f_walk_06", "type": "walk" },
+    { "from": "bldg9_5f_walk_06", "to": "bldg9_5f_walk_07", "type": "walk" },
+    { "from": "bldg9_5f_walk_07", "to": "bldg9_5f_walk_08", "type": "walk" },
+    { "from": "bldg9_5f_walk_08", "to": "bldg9_5f_walk_09", "type": "walk" },
+    { "from": "bldg9_5f_walk_09", "to": "bldg9_5f_walk_10", "type": "walk" },
+    { "from": "bldg9_5f_walk_10", "to": "bldg9_5f_walk_11", "type": "walk" },
+    { "from": "bldg9_5f_walk_11", "to": "bldg9_5f_walk_12", "type": "walk" },
+    { "from": "bldg9_5f_walk_12", "to": "bldg9_5f_walk_13", "type": "walk" },
+
+    // 廊下から北側の部屋・階段へのつながり
+    { "from": "bldg9_5f_walk_01", "to": "bldg9_5f_stairs_left", "type": "walk" },
+    { "from": "bldg9_5f_walk_02", "to": "bldg9_5f_room_959", "type": "walk" },
+    { "from": "bldg9_5f_walk_04", "to": "bldg9_5f_room_958", "type": "walk" },
+    { "from": "bldg9_5f_walk_09", "to": "bldg9_5f_stairs_center", "type": "walk" },
+    { "from": "bldg9_5f_walk_11", "to": "bldg9_5f_room_957", "type": "walk" },
+    { "from": "bldg9_5f_walk_13", "to": "bldg9_5f_elevator", "type": "walk" },
+
+    // 廊下から南側の部屋・階段へのつながり
+    { "from": "bldg9_5f_walk_01", "to": "bldg9_5f_room_951", "type": "walk" },
+    { "from": "bldg9_5f_walk_03", "to": "bldg9_5f_room_952", "type": "walk" },
+    { "from": "bldg9_5f_walk_05", "to": "bldg9_5f_room_953", "type": "walk" },
+    { "from": "bldg9_5f_walk_08", "to": "bldg9_5f_room_954", "type": "walk" },
+    { "from": "bldg9_5f_walk_10", "to": "bldg9_5f_room_955", "type": "walk" },
+    { "from": "bldg9_5f_walk_12", "to": "bldg9_5f_stairs_right", "type": "walk" },
+    { "from": "bldg9_5f_walk_13", "to": "bldg9_5f_room_956", "type": "walk" }
+  ]
+);
+const building_9_3IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（講義室）
+    // ==========================================
+    // 北側（Y: 1430に統一）※指定ルールにより名称変更
+    { "id": "bldg9_3f_room_938", "name": "938", "type": "destination", "floor": 3, "x": 1810, "y": 1430 }, // 旧949位置
+    { "id": "bldg9_3f_room_937", "name": "937", "type": "destination", "floor": 3, "x": 3000, "y": 1430 }, // 旧948位置
+    { "id": "bldg9_3f_room_936", "name": "936", "type": "destination", "floor": 3, "x": 5470, "y": 1430 }, // 旧947位置
+    
+    // 南側（Y: 2030に統一）
+    { "id": "bldg9_3f_room_939", "name": "939", "type": "destination", "floor": 3, "x": 6440, "y": 2030 }, // 旧946位置
+    { "id": "bldg9_3f_room_935", "name": "935", "type": "destination", "floor": 3, "x": 5310, "y": 2030 },
+    { "id": "bldg9_3f_room_934", "name": "934", "type": "destination", "floor": 3, "x": 4140, "y": 2030 },
+    { "id": "bldg9_3f_room_933", "name": "933", "type": "destination", "floor": 3, "x": 3150, "y": 2030 },
+    { "id": "bldg9_3f_room_932", "name": "932", "type": "destination", "floor": 3, "x": 2170, "y": 2030 },
+    { "id": "bldg9_3f_room_931", "name": "931", "type": "destination", "floor": 3, "x": 1020, "y": 2030 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 他のフロアへ繋がる階段とエレベーター
+    // ==========================================
+    { "id": "bldg9_3f_elevator", "name": "9_3_ele", "type": "portal", "floor": 3, "x": 6440, "y": 1600 },
+    { "id": "bldg9_3f_stairs_left", "name": "9_3_左階段", "type": "portal", "floor": 3, "x": 1020, "y": 1430 },
+    { "id": "bldg9_3f_stairs_center", "name": "9_3_中央階段", "type": "portal", "floor": 3, "x": 4510, "y": 1430 },
+    { "id": "bldg9_3f_stairs_right", "name": "9_3_右階段", "type": "portal", "floor": 3, "x": 6140, "y": 2030 },
+
+    // ==========================================
+    // メイン廊下（Y: 1750に完全統一、西から東へナンバリング）
+    // ==========================================
+    { "id": "bldg9_3f_walk_01", "name": "廊下_西端", "type": "walk", "floor": 3, "x": 1020, "y": 1750 },
+    { "id": "bldg9_3f_walk_02", "name": "廊下_938前", "type": "walk", "floor": 3, "x": 1810, "y": 1750 },
+    { "id": "bldg9_3f_walk_03", "name": "廊下_932前", "type": "walk", "floor": 3, "x": 2170, "y": 1750 },
+    { "id": "bldg9_3f_walk_04", "name": "廊下_937前", "type": "walk", "floor": 3, "x": 3000, "y": 1750 },
+    { "id": "bldg9_3f_walk_05", "name": "廊下_933前", "type": "walk", "floor": 3, "x": 3150, "y": 1750 },
+    { "id": "bldg9_3f_walk_06", "name": "廊下_中央西", "type": "walk", "floor": 3, "x": 3700, "y": 1750 },
+    { "id": "bldg9_3f_walk_07", "name": "廊下_中央", "type": "walk", "floor": 3, "x": 3710, "y": 1750 },
+    { "id": "bldg9_3f_walk_08", "name": "廊下_934前", "type": "walk", "floor": 3, "x": 4140, "y": 1750 },
+    { "id": "bldg9_3f_walk_09", "name": "廊下_中央階段前", "type": "walk", "floor": 3, "x": 4510, "y": 1750 },
+    { "id": "bldg9_3f_walk_10", "name": "廊下_935前", "type": "walk", "floor": 3, "x": 5310, "y": 1750 },
+    { "id": "bldg9_3f_walk_11", "name": "廊下_936前", "type": "walk", "floor": 3, "x": 5470, "y": 1750 },
+    { "id": "bldg9_3f_walk_12", "name": "廊下_右階段前", "type": "walk", "floor": 3, "x": 6140, "y": 1750 },
+    { "id": "bldg9_3f_walk_13", "name": "廊下_東端", "type": "walk", "floor": 3, "x": 6440, "y": 1750 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    // メイン廊下の横のつながり（西から東へ）
+    { "from": "bldg9_3f_walk_01", "to": "bldg9_3f_walk_02", "type": "walk" },
+    { "from": "bldg9_3f_walk_02", "to": "bldg9_3f_walk_03", "type": "walk" },
+    { "from": "bldg9_3f_walk_03", "to": "bldg9_3f_walk_04", "type": "walk" },
+    { "from": "bldg9_3f_walk_04", "to": "bldg9_3f_walk_05", "type": "walk" },
+    { "from": "bldg9_3f_walk_05", "to": "bldg9_3f_walk_06", "type": "walk" },
+    { "from": "bldg9_3f_walk_06", "to": "bldg9_3f_walk_07", "type": "walk" },
+    { "from": "bldg9_3f_walk_07", "to": "bldg9_3f_walk_08", "type": "walk" },
+    { "from": "bldg9_3f_walk_08", "to": "bldg9_3f_walk_09", "type": "walk" },
+    { "from": "bldg9_3f_walk_09", "to": "bldg9_3f_walk_10", "type": "walk" },
+    { "from": "bldg9_3f_walk_10", "to": "bldg9_3f_walk_11", "type": "walk" },
+    { "from": "bldg9_3f_walk_11", "to": "bldg9_3f_walk_12", "type": "walk" },
+    { "from": "bldg9_3f_walk_12", "to": "bldg9_3f_walk_13", "type": "walk" },
+
+    // 廊下から北側の部屋・階段へのつながり
+    { "from": "bldg9_3f_walk_01", "to": "bldg9_3f_stairs_left", "type": "walk" },
+    { "from": "bldg9_3f_walk_02", "to": "bldg9_3f_room_938", "type": "walk" },
+    { "from": "bldg9_3f_walk_04", "to": "bldg9_3f_room_937", "type": "walk" },
+    { "from": "bldg9_3f_walk_09", "to": "bldg9_3f_stairs_center", "type": "walk" },
+    { "from": "bldg9_3f_walk_11", "to": "bldg9_3f_room_936", "type": "walk" },
+    { "from": "bldg9_3f_walk_13", "to": "bldg9_3f_elevator", "type": "walk" },
+
+    // 廊下から南側の部屋・階段へのつながり
+    { "from": "bldg9_3f_walk_01", "to": "bldg9_3f_room_931", "type": "walk" },
+    { "from": "bldg9_3f_walk_03", "to": "bldg9_3f_room_932", "type": "walk" },
+    { "from": "bldg9_3f_walk_05", "to": "bldg9_3f_room_933", "type": "walk" },
+    { "from": "bldg9_3f_walk_08", "to": "bldg9_3f_room_934", "type": "walk" },
+    { "from": "bldg9_3f_walk_10", "to": "bldg9_3f_room_935", "type": "walk" },
+    { "from": "bldg9_3f_walk_12", "to": "bldg9_3f_stairs_right", "type": "walk" },
+    { "from": "bldg9_3f_walk_13", "to": "bldg9_3f_room_939", "type": "walk" }
+  ]
+);
+
+const building_9_1IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（各施設・ラウンジ）
+    // ==========================================
+    { "id": "bldg9_1f_room_lounge_a", "name": "学生ラウンジ9_1_a", "type": "destination", "floor": 1, "x": 1670, "y": 1210 },
+    { "id": "bldg9_1f_room_lounge_b", "name": "学生ラウンジ9_1_b", "type": "destination", "floor": 1, "x": 3440, "y": 1210 },
+    { "id": "bldg9_1f_room_health", "name": "健康増進センター", "type": "destination", "floor": 1, "x": 1400, "y": 2000 },
+    { "id": "bldg9_1f_room_support", "name": "学習支援室", "type": "destination", "floor": 1, "x": 3540, "y": 2220 },
+    { "id": "bldg9_1f_room_travel", "name": "中部大学トラベルプラザ", "type": "destination", "floor": 1, "x": 3870, "y": 1080 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 他のフロア・外部へ繋がる出入口
+    // ==========================================
+    // 上の階と共通の座標（階段・エレベーター）
+    { "id": "bldg9_1f_stairs_left", "name": "9_1_左階段", "type": "portal", "floor": 1, "x": 1020, "y": 1430 },
+    { "id": "bldg9_1f_stairs_center", "name": "9_1_中央階段", "type": "portal", "floor": 1, "x": 4510, "y": 1430 },
+    { "id": "bldg9_1f_elevator", "name": "エレベーター8", "type": "portal", "floor": 1, "x": 6440, "y": 1430 },
+    
+    // 1階特有の出入口（外階段・建物の外へ続く道）
+    { "id": "bldg9_1f_stairs_outside", "name": "9_1_外階段", "type": "portal", "floor": 1, "x": 6360, "y": 2220 },
+    { "id": "bldg9_1f_portal_entrance_west", "name": "西側出入口", "type": "portal", "floor": 1, "x": 1400, "y": 1040 },
+    { "id": "bldg9_1f_portal_entrance_east", "name": "東側出入口", "type": "portal", "floor": 1, "x": 3690, "y": 1040 },
+
+    // ==========================================
+    // 廊下（XY座標をグリッドにスナップ）
+    // ==========================================
+    { "id": "bldg9_1f_walk_01", "name": "左階段前通路", "type": "walk", "floor": 1, "x": 1020, "y": 1210 },
+    { "id": "bldg9_1f_walk_02", "name": "西側出入口交差点", "type": "walk", "floor": 1, "x": 1400, "y": 1210 },
+    { "id": "bldg9_1f_walk_03", "name": "健康増進センター前", "type": "walk", "floor": 1, "x": 1400, "y": 1800 },
+    { "id": "bldg9_1f_walk_04", "name": "東側出入口交差点南", "type": "walk", "floor": 1, "x": 3690, "y": 1800 },
+    { "id": "bldg9_1f_walk_05", "name": "中央通路1", "type": "walk", "floor": 1, "x": 4070, "y": 1800 },
+    { "id": "bldg9_1f_walk_06", "name": "中央通路2", "type": "walk", "floor": 1, "x": 4470, "y": 1800 },
+    { "id": "bldg9_1f_walk_07", "name": "中央階段前通路", "type": "walk", "floor": 1, "x": 4510, "y": 1800 },
+    { "id": "bldg9_1f_walk_08", "name": "中央通路3", "type": "walk", "floor": 1, "x": 4720, "y": 1800 },
+    { "id": "bldg9_1f_walk_09", "name": "エレベーター前通路南", "type": "walk", "floor": 1, "x": 6440, "y": 1800 },
+    { "id": "bldg9_1f_walk_10", "name": "東端通路", "type": "walk", "floor": 1, "x": 6660, "y": 1800 },
+    { "id": "bldg9_1f_walk_11", "name": "南東角", "type": "walk", "floor": 1, "x": 6660, "y": 2660 },
+    { "id": "bldg9_1f_walk_12", "name": "外階段南通路", "type": "walk", "floor": 1, "x": 6360, "y": 2660 },
+    { "id": "bldg9_1f_walk_13", "name": "外階段北通路", "type": "walk", "floor": 1, "x": 6360, "y": 2440 },
+    { "id": "bldg9_1f_walk_14", "name": "南通路東", "type": "walk", "floor": 1, "x": 4470, "y": 2660 },
+    { "id": "bldg9_1f_walk_15", "name": "南通路連絡1", "type": "walk", "floor": 1, "x": 4470, "y": 2520 },
+    { "id": "bldg9_1f_walk_16", "name": "南通路連絡2", "type": "walk", "floor": 1, "x": 4070, "y": 2520 },
+    { "id": "bldg9_1f_walk_17", "name": "南通路連絡3", "type": "walk", "floor": 1, "x": 4470, "y": 2220 },
+    { "id": "bldg9_1f_walk_18", "name": "南通路連絡4", "type": "walk", "floor": 1, "x": 4070, "y": 2220 },
+    { "id": "bldg9_1f_walk_19", "name": "学習支援室前", "type": "walk", "floor": 1, "x": 3690, "y": 2220 },
+    { "id": "bldg9_1f_walk_20", "name": "東側出入口交差点", "type": "walk", "floor": 1, "x": 3690, "y": 1210 },
+    { "id": "bldg9_1f_walk_21", "name": "トラベルプラザ前", "type": "walk", "floor": 1, "x": 3690, "y": 1080 },
+    { "id": "bldg9_1f_walk_22", "name": "エレベーター前通路北", "type": "walk", "floor": 1, "x": 6440, "y": 1600 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    
+    // 西側エリア
+    { "from": "bldg9_1f_stairs_left", "to": "bldg9_1f_walk_01", "type": "walk" },
+    { "from": "bldg9_1f_walk_01", "to": "bldg9_1f_walk_02", "type": "walk" },
+    { "from": "bldg9_1f_portal_entrance_west", "to": "bldg9_1f_walk_02", "type": "walk" },
+    { "from": "bldg9_1f_walk_02", "to": "bldg9_1f_walk_03", "type": "walk" },
+    { "from": "bldg9_1f_walk_03", "to": "bldg9_1f_room_health", "type": "walk" },
+    { "from": "bldg9_1f_walk_02", "to": "bldg9_1f_room_lounge_a", "type": "walk" },
+
+    // 中央エリア（東西メイン通路 Y:1800 ライン）
+    { "from": "bldg9_1f_walk_03", "to": "bldg9_1f_walk_04", "type": "walk" },
+    { "from": "bldg9_1f_walk_04", "to": "bldg9_1f_walk_05", "type": "walk" },
+    { "from": "bldg9_1f_walk_05", "to": "bldg9_1f_walk_06", "type": "walk" },
+    { "from": "bldg9_1f_walk_06", "to": "bldg9_1f_walk_07", "type": "walk" },
+    { "from": "bldg9_1f_walk_07", "to": "bldg9_1f_walk_08", "type": "walk" },
+    { "from": "bldg9_1f_walk_08", "to": "bldg9_1f_walk_09", "type": "walk" },
+    { "from": "bldg9_1f_walk_07", "to": "bldg9_1f_stairs_center", "type": "walk" },
+
+    // 東側出入口・トラベルプラザ周辺
+    { "from": "bldg9_1f_walk_04", "to": "bldg9_1f_walk_20", "type": "walk" },
+    { "from": "bldg9_1f_walk_20", "to": "bldg9_1f_walk_21", "type": "walk" },
+    { "from": "bldg9_1f_walk_21", "to": "bldg9_1f_room_travel", "type": "walk" },
+    { "from": "bldg9_1f_portal_entrance_east", "to": "bldg9_1f_walk_21", "type": "walk" },
+    { "from": "bldg9_1f_walk_20", "to": "bldg9_1f_room_lounge_b", "type": "walk" },
+
+    // 学習支援室・南側の複雑な通路網
+    { "from": "bldg9_1f_walk_04", "to": "bldg9_1f_walk_19", "type": "walk" },
+    { "from": "bldg9_1f_walk_19", "to": "bldg9_1f_room_support", "type": "walk" },
+    { "from": "bldg9_1f_walk_19", "to": "bldg9_1f_walk_18", "type": "walk" },
+    { "from": "bldg9_1f_walk_18", "to": "bldg9_1f_walk_16", "type": "walk" },
+    { "from": "bldg9_1f_walk_18", "to": "bldg9_1f_walk_05", "type": "walk" },
+    { "from": "bldg9_1f_walk_18", "to": "bldg9_1f_walk_17", "type": "walk" },
+    { "from": "bldg9_1f_walk_17", "to": "bldg9_1f_walk_15", "type": "walk" },
+    { "from": "bldg9_1f_walk_17", "to": "bldg9_1f_walk_06", "type": "walk" },
+    { "from": "bldg9_1f_walk_14", "to": "bldg9_1f_walk_15", "type": "walk" },
+
+    // 東側（エレベーター・外階段）エリア
+    { "from": "bldg9_1f_walk_09", "to": "bldg9_1f_walk_22", "type": "walk" },
+    { "from": "bldg9_1f_walk_22", "to": "bldg9_1f_elevator", "type": "walk" },
+    { "from": "bldg9_1f_walk_09", "to": "bldg9_1f_walk_10", "type": "walk" },
+    { "from": "bldg9_1f_walk_10", "to": "bldg9_1f_walk_11", "type": "walk" },
+    { "from": "bldg9_1f_walk_11", "to": "bldg9_1f_walk_12", "type": "walk" },
+    { "from": "bldg9_1f_walk_12", "to": "bldg9_1f_walk_13", "type": "walk" },
+    { "from": "bldg9_1f_walk_13", "to": "bldg9_1f_stairs_outside", "type": "walk" },
+    { "from": "bldg9_1f_walk_12", "to": "bldg9_1f_walk_14", "type": "walk" }
+  ]
+);
+
+const building_9_2IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（講義室・ラウンジ・控室）
+    // ==========================================
+    // 北側
+    { "id": "bldg9_2f_room_925", "name": "925", "type": "destination", "floor": 2, "x": 2390, "y": 1430 },
+    { "id": "bldg9_2f_room_92a", "name": "92A", "type": "destination", "floor": 2, "x": 3510, "y": 1210 },
+    { "id": "bldg9_2f_room_lounge", "name": "9_2_学生ラウンジ", "type": "destination", "floor": 2, "x": 5270, "y": 1430 },
+    
+    // 南側・東側
+    { "id": "bldg9_2f_room_921", "name": "921", "type": "destination", "floor": 2, "x": 1020, "y": 2030 },
+    { "id": "bldg9_2f_room_922", "name": "922", "type": "destination", "floor": 2, "x": 2170, "y": 2030 },
+    { "id": "bldg9_2f_room_923", "name": "923", "type": "destination", "floor": 2, "x": 3150, "y": 2030 },
+    { "id": "bldg9_2f_room_924", "name": "924", "type": "destination", "floor": 2, "x": 4140, "y": 2030 },
+    { "id": "bldg9_2f_room_teachers", "name": "講師控室", "type": "destination", "floor": 2, "x": 6750, "y": 2260 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 他のフロアや棟へ繋がる出入口
+    // ==========================================
+    // 他の階と共通の階段・エレベーター
+    { "id": "bldg9_2f_stairs_left", "name": "9_2_左階段", "type": "portal", "floor": 2, "x": 1020, "y": 1430 },
+    { "id": "bldg9_2f_stairs_center", "name": "9_2_中央階段", "type": "portal", "floor": 2, "x": 4510, "y": 1430 },
+    { "id": "bldg9_2f_stairs_right", "name": "9_2_右階段", "type": "portal", "floor": 2, "x": 6140, "y": 2030 },
+    { "id": "bldg9_2f_elevator", "name": "エレベーター9", "type": "portal", "floor": 2, "x": 6440, "y": 1600 },
+    
+    // 2階特有のポータル（外階段、連絡通路）
+    { "id": "bldg9_2f_stairs_outside", "name": "9_2_外階段", "type": "portal", "floor": 2, "x": 6360, "y": 1940 },
+    { "id": "bldg9_2f_portal_bridge", "name": "他棟への連絡通路", "type": "portal", "floor": 2, "x": 6000, "y": 480 },
+
+    // ==========================================
+    // メイン廊下（Y: 1750に完全統一）
+    // ==========================================
+    { "id": "bldg9_2f_walk_16", "name": "左階段前通路", "type": "walk", "floor": 2, "x": 1020, "y": 1750 },
+    { "id": "bldg9_2f_walk_14", "name": "922前", "type": "walk", "floor": 2, "x": 2170, "y": 1750 },
+    { "id": "bldg9_2f_walk_15", "name": "925前", "type": "walk", "floor": 2, "x": 2390, "y": 1750 },
+    { "id": "bldg9_2f_walk_17", "name": "923前", "type": "walk", "floor": 2, "x": 3150, "y": 1750 },
+    { "id": "bldg9_2f_walk_18", "name": "92A分岐", "type": "walk", "floor": 2, "x": 3690, "y": 1750 },
+    { "id": "bldg9_2f_walk_19", "name": "92A連絡通路", "type": "walk", "floor": 2, "x": 3690, "y": 1210 },
+    { "id": "bldg9_2f_walk_20", "name": "廊下中継", "type": "walk", "floor": 2, "x": 3900, "y": 1750 },
+    { "id": "bldg9_2f_walk_21", "name": "924前", "type": "walk", "floor": 2, "x": 4140, "y": 1750 },
+    { "id": "bldg9_2f_walk_22", "name": "中央階段前", "type": "walk", "floor": 2, "x": 4510, "y": 1750 },
+    { "id": "bldg9_2f_walk_23", "name": "ラウンジ前", "type": "walk", "floor": 2, "x": 5270, "y": 1750 },
+    { "id": "bldg9_2f_walk_24", "name": "連絡橋分岐", "type": "walk", "floor": 2, "x": 6000, "y": 1750 },
+    { "id": "bldg9_2f_walk_26", "name": "右階段前", "type": "walk", "floor": 2, "x": 6140, "y": 1750 },
+    { "id": "bldg9_2f_walk_27", "name": "外階段分岐", "type": "walk", "floor": 2, "x": 6360, "y": 1750 },
+    { "id": "bldg9_2f_walk_28", "name": "エレベーター前", "type": "walk", "floor": 2, "x": 6440, "y": 1750 },
+    { "id": "bldg9_2f_walk_29", "name": "東端中継", "type": "walk", "floor": 2, "x": 6750, "y": 1750 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    
+    // 西側（左階段〜922・925周辺）
+    { "from": "bldg9_2f_stairs_left", "to": "bldg9_2f_walk_16", "type": "walk" },
+    { "from": "bldg9_2f_walk_16", "to": "bldg9_2f_room_921", "type": "walk" },
+    { "from": "bldg9_2f_walk_16", "to": "bldg9_2f_walk_14", "type": "walk" },
+    { "from": "bldg9_2f_walk_14", "to": "bldg9_2f_room_922", "type": "walk" },
+    { "from": "bldg9_2f_walk_14", "to": "bldg9_2f_walk_15", "type": "walk" },
+    { "from": "bldg9_2f_room_925", "to": "bldg9_2f_walk_15", "type": "walk" },
+
+    // 中央西側（923〜92A周辺）
+    { "from": "bldg9_2f_walk_15", "to": "bldg9_2f_walk_17", "type": "walk" },
+    { "from": "bldg9_2f_walk_17", "to": "bldg9_2f_room_923", "type": "walk" },
+    { "from": "bldg9_2f_walk_17", "to": "bldg9_2f_walk_18", "type": "walk" },
+    { "from": "bldg9_2f_walk_18", "to": "bldg9_2f_walk_19", "type": "walk" },
+    { "from": "bldg9_2f_room_92a", "to": "bldg9_2f_walk_19", "type": "walk" },
+
+    // 中央エリア（924〜中央階段〜ラウンジ）
+    { "from": "bldg9_2f_walk_18", "to": "bldg9_2f_walk_20", "type": "walk" },
+    { "from": "bldg9_2f_walk_20", "to": "bldg9_2f_walk_21", "type": "walk" },
+    { "from": "bldg9_2f_walk_21", "to": "bldg9_2f_room_924", "type": "walk" },
+    { "from": "bldg9_2f_walk_21", "to": "bldg9_2f_walk_22", "type": "walk" },
+    { "from": "bldg9_2f_walk_22", "to": "bldg9_2f_stairs_center", "type": "walk" },
+    { "from": "bldg9_2f_walk_22", "to": "bldg9_2f_walk_23", "type": "walk" },
+    { "from": "bldg9_2f_walk_23", "to": "bldg9_2f_room_lounge", "type": "walk" },
+
+    // 東側エリア（連絡橋〜右階段〜エレベーター〜講師控室）
+    { "from": "bldg9_2f_walk_23", "to": "bldg9_2f_walk_24", "type": "walk" },
+    { "from": "bldg9_2f_walk_24", "to": "bldg9_2f_portal_bridge", "type": "walk" },
+    { "from": "bldg9_2f_walk_24", "to": "bldg9_2f_walk_26", "type": "walk" },
+    { "from": "bldg9_2f_stairs_right", "to": "bldg9_2f_walk_26", "type": "walk" },
+    { "from": "bldg9_2f_walk_26", "to": "bldg9_2f_walk_27", "type": "walk" },
+    { "from": "bldg9_2f_walk_27", "to": "bldg9_2f_stairs_outside", "type": "walk" },
+    { "from": "bldg9_2f_walk_27", "to": "bldg9_2f_walk_28", "type": "walk" },
+    { "from": "bldg9_2f_walk_28", "to": "bldg9_2f_elevator", "type": "walk" },
+    { "from": "bldg9_2f_walk_28", "to": "bldg9_2f_walk_29", "type": "walk" },
+    { "from": "bldg9_2f_walk_29", "to": "bldg9_2f_room_teachers", "type": "walk" }
+  ]
+);
+
+const building_campplaza_1IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（座標は一切ずらしていません）
+    // ==========================================
+    { "id": "bldg_campplaza_1f_room_711", "name": "セブンイレブン", "type": "destination", "floor": 1, "x": 2220, "y": 2363 },
+    { "id": "bldg_campplaza_1f_room_nikumaru", "name": "にくまる", "type": "destination", "floor": 1, "x": 1265, "y": 5565 },
+    { "id": "bldg_campplaza_1f_room_post", "name": "郵便局", "type": "destination", "floor": 1, "x": 6097, "y": 3665 },
+    { "id": "bldg_campplaza_1f_room_atm", "name": "ATM", "type": "destination", "floor": 1, "x": 3500, "y": 1925 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 階段・エレベーター
+    // ==========================================
+    { "id": "bldg_campplaza_1f_elevator_5", "name": "エレベーター5", "type": "portal", "floor": 1, "x": 4857, "y": 4885 },
+    { "id": "bldg_campplaza_1f_stairs_6", "name": "階段6", "type": "portal", "floor": 1, "x": 4967, "y": 2005 },
+    { "id": "bldg_campplaza_1f_stairs_7", "name": "階段7", "type": "portal", "floor": 1, "x": 1780, "y": 5360 },
+    { "id": "bldg_campplaza_1f_stairs_8", "name": "階段8", "type": "portal", "floor": 1, "x": 5422, "y": 4980 },
+
+    // ==========================================
+    // 北側通路（Y: 2680に統一）
+    // ==========================================
+    { "id": "bldg_campplaza_1f_walk_12", "name": "西端交差点", "type": "walk", "floor": 1, "x": 1265, "y": 2680 },
+    { "id": "bldg_campplaza_1f_walk_33", "name": "セブンイレブン前", "type": "walk", "floor": 1, "x": 2220, "y": 2680 },
+    { "id": "bldg_campplaza_1f_walk_34", "name": "ATM前", "type": "walk", "floor": 1, "x": 3500, "y": 2680 },
+    { "id": "bldg_campplaza_1f_walk_35", "name": "中央通路北", "type": "walk", "floor": 1, "x": 3970, "y": 2680 },
+    { "id": "bldg_campplaza_1f_walk_30", "name": "エレベーター通路北", "type": "walk", "floor": 1, "x": 4857, "y": 2680 },
+    { "id": "bldg_campplaza_1f_walk_31", "name": "階段6前", "type": "walk", "floor": 1, "x": 4967, "y": 2680 },
+    { "id": "bldg_campplaza_1f_walk_32", "name": "東端交差点", "type": "walk", "floor": 1, "x": 5260, "y": 2680 },
+
+    // ==========================================
+    // 南側通路（Y: 4450に統一）
+    // ==========================================
+    { "id": "bldg_campplaza_1f_walk_09", "name": "南西角", "type": "walk", "floor": 1, "x": 1265, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_19", "name": "階段7分岐", "type": "walk", "floor": 1, "x": 1780, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_18", "name": "南側う回分岐", "type": "walk", "floor": 1, "x": 1975, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_20", "name": "セブンイレブン南", "type": "walk", "floor": 1, "x": 2220, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_21", "name": "ATM南", "type": "walk", "floor": 1, "x": 3500, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_22", "name": "中央通路南", "type": "walk", "floor": 1, "x": 3970, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_29", "name": "南分岐1", "type": "walk", "floor": 1, "x": 4470, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_23", "name": "エレベーター通路南", "type": "walk", "floor": 1, "x": 4857, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_24", "name": "階段8分岐", "type": "walk", "floor": 1, "x": 5150, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_13", "name": "東側通路連絡", "type": "walk", "floor": 1, "x": 5837, "y": 4450 },
+    { "id": "bldg_campplaza_1f_walk_26", "name": "郵便局前", "type": "walk", "floor": 1, "x": 6097, "y": 4450 },
+
+    // ==========================================
+    // その他の枝道・連絡通路
+    // ==========================================
+    { "id": "bldg_campplaza_1f_walk_10", "name": "北側出入口?", "type": "walk", "floor": 1, "x": 3970, "y": 1720 },
+    { "id": "bldg_campplaza_1f_walk_11", "name": "北東側連絡", "type": "walk", "floor": 1, "x": 5260, "y": 2525 },
+    { "id": "bldg_campplaza_1f_walk_25", "name": "階段8前", "type": "walk", "floor": 1, "x": 5150, "y": 4980 },
+    
+    // 西側（にくまる・階段7周辺）
+    { "id": "bldg_campplaza_1f_walk_16", "name": "西側外周交差点1", "type": "walk", "floor": 1, "x": 1265, "y": 6000 },
+    { "id": "bldg_campplaza_1f_walk_15", "name": "西側外周行き止まり", "type": "walk", "floor": 1, "x": 1265, "y": 6390 },
+    { "id": "bldg_campplaza_1f_walk_17", "name": "西側外周交差点2", "type": "walk", "floor": 1, "x": 1975, "y": 6000 },
+
+    // 中央南側
+    { "id": "bldg_campplaza_1f_walk_28", "name": "南側連絡1", "type": "walk", "floor": 1, "x": 4470, "y": 6390 },
+    { "id": "bldg_campplaza_1f_walk_27", "name": "南側連絡2", "type": "walk", "floor": 1, "x": 4270, "y": 6390 },
+    { "id": "bldg_campplaza_1f_walk_14", "name": "南側出入口?", "type": "walk", "floor": 1, "x": 4270, "y": 7045 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義（重複を完全排除）
+    // ==========================================
+    
+    // 北側通路（東西のつながり）
+    { "from": "bldg_campplaza_1f_walk_12", "to": "bldg_campplaza_1f_walk_33", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_33", "to": "bldg_campplaza_1f_walk_34", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_34", "to": "bldg_campplaza_1f_walk_35", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_35", "to": "bldg_campplaza_1f_walk_30", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_30", "to": "bldg_campplaza_1f_walk_31", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_31", "to": "bldg_campplaza_1f_walk_32", "type": "walk" },
+
+    // 南側通路（東西のつながり）
+    { "from": "bldg_campplaza_1f_walk_09", "to": "bldg_campplaza_1f_walk_19", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_19", "to": "bldg_campplaza_1f_walk_18", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_18", "to": "bldg_campplaza_1f_walk_20", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_20", "to": "bldg_campplaza_1f_walk_21", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_21", "to": "bldg_campplaza_1f_walk_22", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_22", "to": "bldg_campplaza_1f_walk_29", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_29", "to": "bldg_campplaza_1f_walk_23", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_23", "to": "bldg_campplaza_1f_walk_24", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_24", "to": "bldg_campplaza_1f_walk_13", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_13", "to": "bldg_campplaza_1f_walk_26", "type": "walk" },
+
+    // 南北の連絡通路
+    { "from": "bldg_campplaza_1f_walk_12", "to": "bldg_campplaza_1f_walk_09", "type": "walk" }, // 西端
+    { "from": "bldg_campplaza_1f_walk_35", "to": "bldg_campplaza_1f_walk_22", "type": "walk" }, // 中央
+    { "from": "bldg_campplaza_1f_walk_30", "to": "bldg_campplaza_1f_walk_23", "type": "walk" }, // エレベーター前
+
+    // 目的地・ポータルへの接続
+    { "from": "bldg_campplaza_1f_walk_33", "to": "bldg_campplaza_1f_room_711", "type": "walk" }, // セブンイレブン
+    { "from": "bldg_campplaza_1f_walk_34", "to": "bldg_campplaza_1f_room_atm", "type": "walk" }, // ATM
+    { "from": "bldg_campplaza_1f_walk_26", "to": "bldg_campplaza_1f_room_post", "type": "walk" }, // 郵便局
+    { "from": "bldg_campplaza_1f_walk_09", "to": "bldg_campplaza_1f_room_nikumaru", "type": "walk" }, // にくまる
+    { "from": "bldg_campplaza_1f_walk_23", "to": "bldg_campplaza_1f_elevator_5", "type": "walk" }, // エレベーター
+    { "from": "bldg_campplaza_1f_walk_31", "to": "bldg_campplaza_1f_stairs_6", "type": "walk" }, // 階段6
+    { "from": "bldg_campplaza_1f_walk_19", "to": "bldg_campplaza_1f_stairs_7", "type": "walk" }, // 階段7
+    { "from": "bldg_campplaza_1f_walk_24", "to": "bldg_campplaza_1f_walk_25", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_25", "to": "bldg_campplaza_1f_stairs_8", "type": "walk" }, // 階段8
+
+    // その他の枝道
+    { "from": "bldg_campplaza_1f_walk_35", "to": "bldg_campplaza_1f_walk_10", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_32", "to": "bldg_campplaza_1f_walk_11", "type": "walk" },
+    
+    // 西側外周（にくまる横〜南）
+    { "from": "bldg_campplaza_1f_room_nikumaru", "to": "bldg_campplaza_1f_walk_16", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_16", "to": "bldg_campplaza_1f_walk_15", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_16", "to": "bldg_campplaza_1f_walk_17", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_17", "to": "bldg_campplaza_1f_walk_18", "type": "walk" },
+    
+    // 中央南側
+    { "from": "bldg_campplaza_1f_walk_29", "to": "bldg_campplaza_1f_walk_28", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_28", "to": "bldg_campplaza_1f_walk_27", "type": "walk" },
+    { "from": "bldg_campplaza_1f_walk_27", "to": "bldg_campplaza_1f_walk_14", "type": "walk" }
+  ]
+);
+
+const building_campplaza_2IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地（座標は一切ずらしていません）
+    // ==========================================
+    { "id": "bldg_campplaza_2f_room_maruzen", "name": "MARUZEN", "type": "destination", "floor": 2, "x": 3895, "y": 2510 },
+    { "id": "bldg_campplaza_2f_room_service", "name": "中部大学サービス", "type": "destination", "floor": 2, "x": 4360, "y": 3565 },
+    { "id": "bldg_campplaza_2f_room_locker", "name": "ロッカー室", "type": "destination", "floor": 2, "x": 5865, "y": 3140 },
+    { "id": "bldg_campplaza_2f_room_plaza", "name": "国際・地域交流プラザ", "type": "destination", "floor": 2, "x": 4955, "y": 5347 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 階段・エレベーター（1階と座標を完全一致）
+    // ==========================================
+    { "id": "bldg_campplaza_2f_elevator_5", "name": "エレベーター5", "type": "portal", "floor": 2, "x": 4857, "y": 4885 },
+    { "id": "bldg_campplaza_2f_stairs_6", "name": "階段6", "type": "portal", "floor": 2, "x": 4967, "y": 2005 },
+    { "id": "bldg_campplaza_2f_stairs_7", "name": "階段7", "type": "portal", "floor": 2, "x": 1780, "y": 5360 },
+    { "id": "bldg_campplaza_2f_stairs_8", "name": "階段8", "type": "portal", "floor": 2, "x": 5422, "y": 4980 },
+    // 1階の階段7とは位置が違うため、名前とIDを独立
+    { "id": "bldg_campplaza_2f_stairs_9", "name": "南東階段", "type": "portal", "floor": 2, "x": 6340, "y": 5477 },
+
+    // ==========================================
+    // 通路（座標をグリッドにスナップ）
+    // ==========================================
+    // 東側南北メイン通路（X: 4600に統一）
+    { "id": "bldg_campplaza_2f_walk_23", "name": "北端分岐", "type": "walk", "floor": 2, "x": 4600, "y": 1960 },
+    { "id": "bldg_campplaza_2f_walk_22", "name": "MARUZEN前", "type": "walk", "floor": 2, "x": 4600, "y": 2510 },
+    { "id": "bldg_campplaza_2f_walk_20", "name": "階段6・ロッカー分岐", "type": "walk", "floor": 2, "x": 4600, "y": 3130 },
+    { "id": "bldg_campplaza_2f_walk_19", "name": "中部大学サービス前", "type": "walk", "floor": 2, "x": 4600, "y": 3565 },
+    { "id": "bldg_campplaza_2f_walk_14", "name": "東西通路交差点", "type": "walk", "floor": 2, "x": 4600, "y": 4995 },
+
+    // 南側東西メイン通路（Y: 4995に統一）
+    { "id": "bldg_campplaza_2f_walk_13", "name": "西側連絡通路", "type": "walk", "floor": 2, "x": 2130, "y": 4995 },
+    { "id": "bldg_campplaza_2f_walk_15", "name": "プラザ分岐", "type": "walk", "floor": 2, "x": 4955, "y": 4995 },
+    { "id": "bldg_campplaza_2f_walk_16", "name": "階段8分岐", "type": "walk", "floor": 2, "x": 5422, "y": 4995 },
+    { "id": "bldg_campplaza_2f_walk_17", "name": "東端連絡通路", "type": "walk", "floor": 2, "x": 5915, "y": 4995 },
+
+    // 南西エリア（階段7周辺・西側の通路）
+    { "id": "bldg_campplaza_2f_walk_11", "name": "西側通路交差点", "type": "walk", "floor": 2, "x": 2130, "y": 6180 },
+    { "id": "bldg_campplaza_2f_walk_12", "name": "階段7連絡", "type": "walk", "floor": 2, "x": 2380, "y": 6180 },
+    { "id": "bldg_campplaza_2f_walk_10", "name": "西端連絡", "type": "walk", "floor": 2, "x": 780, "y": 6180 },
+
+    // その他の枝道
+    { "id": "bldg_campplaza_2f_walk_21", "name": "ロッカー室連絡", "type": "walk", "floor": 2, "x": 5540, "y": 3130 },
+    { "id": "bldg_campplaza_2f_walk_18", "name": "南東階段連絡", "type": "walk", "floor": 2, "x": 5915, "y": 5470 },
+    { "id": "bldg_campplaza_2f_walk_24", "name": "北東連絡", "type": "walk", "floor": 2, "x": 6440, "y": 1960 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義（重複を完全排除）
+    // ==========================================
+    
+    // 東側南北メイン通路（北から南へ）
+    { "from": "bldg_campplaza_2f_walk_23", "to": "bldg_campplaza_2f_walk_22", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_22", "to": "bldg_campplaza_2f_walk_20", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_20", "to": "bldg_campplaza_2f_walk_19", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_19", "to": "bldg_campplaza_2f_walk_14", "type": "walk" },
+
+    // 南側東西メイン通路（西から東へ）
+    { "from": "bldg_campplaza_2f_walk_13", "to": "bldg_campplaza_2f_walk_14", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_14", "to": "bldg_campplaza_2f_walk_15", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_15", "to": "bldg_campplaza_2f_walk_16", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_16", "to": "bldg_campplaza_2f_walk_17", "type": "walk" },
+
+    // 西側・南西エリア
+    { "from": "bldg_campplaza_2f_walk_10", "to": "bldg_campplaza_2f_walk_11", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_11", "to": "bldg_campplaza_2f_walk_12", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_11", "to": "bldg_campplaza_2f_walk_13", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_12", "to": "bldg_campplaza_2f_stairs_7", "type": "walk" },
+
+    // 目的地への接続
+    { "from": "bldg_campplaza_2f_walk_22", "to": "bldg_campplaza_2f_room_maruzen", "type": "walk" }, // MARUZEN
+    { "from": "bldg_campplaza_2f_walk_19", "to": "bldg_campplaza_2f_room_service", "type": "walk" }, // サービス
+    { "from": "bldg_campplaza_2f_walk_20", "to": "bldg_campplaza_2f_walk_21", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_21", "to": "bldg_campplaza_2f_room_locker", "type": "walk" }, // ロッカー
+    { "from": "bldg_campplaza_2f_walk_15", "to": "bldg_campplaza_2f_room_plaza", "type": "walk" }, // プラザ
+
+    // ポータル（階段・エレベーター）への接続
+    { "from": "bldg_campplaza_2f_walk_21", "to": "bldg_campplaza_2f_stairs_6", "type": "walk" }, // 階段6
+    { "from": "bldg_campplaza_2f_walk_15", "to": "bldg_campplaza_2f_elevator_5", "type": "walk" }, // エレベーター5
+    { "from": "bldg_campplaza_2f_walk_16", "to": "bldg_campplaza_2f_stairs_8", "type": "walk" }, // 階段8
+    { "from": "bldg_campplaza_2f_walk_17", "to": "bldg_campplaza_2f_walk_18", "type": "walk" },
+    { "from": "bldg_campplaza_2f_walk_18", "to": "bldg_campplaza_2f_stairs_9", "type": "walk" }, // 南東階段（旧階段7）
+
+    // その他の枝道
+    { "from": "bldg_campplaza_2f_walk_23", "to": "bldg_campplaza_2f_walk_24", "type": "walk" }
+  ]
+);
+
+const building_5_3IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地
+    // ==========================================
+    { "id": "bldg5_3f_room_531", "name": "531", "type": "destination", "floor": 3, "x": 3060, "y": 960 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 階段・他棟への連絡（2階と座標を完全一致）
+    // ==========================================
+    { "id": "bldg5_3f_stairs_2", "name": "階段2", "type": "portal", "floor": 3, "x": 3360, "y": 1490 },
+    { "id": "bldg5_3f_stairs_3", "name": "階段3", "type": "portal", "floor": 3, "x": 840, "y": 2010 },
+    { "id": "bldg5_3f_stairs_4", "name": "階段4", "type": "portal", "floor": 3, "x": 860, "y": 4300 },
+    { "id": "bldg5_3f_stairs_5", "name": "階段5", "type": "portal", "floor": 3, "x": 840, "y": 6840 },
+    // 東へ伸びる道は他棟への接続口と推定
+    { "id": "bldg5_3f_portal_east", "name": "東側連絡通路", "type": "portal", "floor": 3, "x": 2075, "y": 4045 },
+
+    // ==========================================
+    // 廊下（直線のスナップと斜め通路の維持）
+    // ==========================================
+    // 西側南北メイン通路（X: 1060に統一）
+    { "id": "bldg5_3f_walk_09", "name": "階段5連絡", "type": "walk", "floor": 3, "x": 1060, "y": 6840 },
+    { "id": "bldg5_3f_walk_08", "name": "階段4連絡", "type": "walk", "floor": 3, "x": 1060, "y": 4300 },
+    { "id": "bldg5_3f_walk_07", "name": "東側連絡分岐", "type": "walk", "floor": 3, "x": 1060, "y": 4045 },
+    { "id": "bldg5_3f_walk_11", "name": "斜め通路始点", "type": "walk", "floor": 3, "x": 1060, "y": 3310 },
+
+    // 斜め通路〜北側通路（X: 1170へシフト）
+    { "id": "bldg5_3f_walk_12", "name": "斜め通路終点", "type": "walk", "floor": 3, "x": 1170, "y": 3070 },
+    { "id": "bldg5_3f_walk_13", "name": "階段3連絡", "type": "walk", "floor": 3, "x": 1170, "y": 2010 },
+    { "id": "bldg5_3f_walk_14", "name": "北側交差点", "type": "walk", "floor": 3, "x": 1170, "y": 1150 },
+
+    // 北側東西メイン通路（Y: 1150に統一）
+    { "id": "bldg5_3f_walk_15", "name": "531前", "type": "walk", "floor": 3, "x": 3060, "y": 1150 },
+    { "id": "bldg5_3f_walk_16", "name": "東側分岐", "type": "walk", "floor": 3, "x": 3570, "y": 1150 },
+
+    // 東側（階段2周辺）
+    { "id": "bldg5_3f_walk_17", "name": "階段2連絡1", "type": "walk", "floor": 3, "x": 3570, "y": 1330 },
+    { "id": "bldg5_3f_walk_18", "name": "階段2前", "type": "walk", "floor": 3, "x": 3360, "y": 1330 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    // 西側メイン通路（南から北へ）
+    { "from": "bldg5_3f_stairs_5", "to": "bldg5_3f_walk_09", "type": "walk" },
+    { "from": "bldg5_3f_walk_09", "to": "bldg5_3f_walk_08", "type": "walk" },
+    { "from": "bldg5_3f_stairs_4", "to": "bldg5_3f_walk_08", "type": "walk" },
+    { "from": "bldg5_3f_walk_08", "to": "bldg5_3f_walk_07", "type": "walk" },
+    { "from": "bldg5_3f_walk_07", "to": "bldg5_3f_walk_11", "type": "walk" },
+
+    // 斜め通路
+    { "from": "bldg5_3f_walk_11", "to": "bldg5_3f_walk_12", "type": "walk" },
+
+    // 北側通路への連絡
+    { "from": "bldg5_3f_walk_12", "to": "bldg5_3f_walk_13", "type": "walk" },
+    { "from": "bldg5_3f_walk_13", "to": "bldg5_3f_stairs_3", "type": "walk" },
+    { "from": "bldg5_3f_walk_13", "to": "bldg5_3f_walk_14", "type": "walk" },
+
+    // 北側東西メイン通路（西から東へ）
+    { "from": "bldg5_3f_walk_14", "to": "bldg5_3f_walk_15", "type": "walk" },
+    { "from": "bldg5_3f_walk_15", "to": "bldg5_3f_room_531", "type": "walk" },
+    { "from": "bldg5_3f_walk_15", "to": "bldg5_3f_walk_16", "type": "walk" },
+
+    // 階段2周辺へのクランク
+    { "from": "bldg5_3f_walk_16", "to": "bldg5_3f_walk_17", "type": "walk" },
+    { "from": "bldg5_3f_walk_17", "to": "bldg5_3f_walk_18", "type": "walk" },
+    { "from": "bldg5_3f_walk_18", "to": "bldg5_3f_stairs_2", "type": "walk" },
+
+    // 東側ポータル接続・枝道
+    { "from": "bldg5_3f_walk_07", "to": "bldg5_3f_portal_east", "type": "walk" }
+  ]
+);
+
+const building_5_4IndoorGraph = IndoorRoute.createIndoorGraph(
+  [
+    // ==========================================
+    // 目的地
+    // ==========================================
+    { "id": "bldg5_4f_room_lab", "name": "情報工学第2学生実験室", "type": "destination", "floor": 4, "x": 3060, "y": 960 },
+
+    // ==========================================
+    // 外部接続口（ポータル）: 階段・他棟への連絡（2・3階と座標を完全一致）
+    // ==========================================
+    { "id": "bldg5_4f_stairs_2", "name": "階段2", "type": "portal", "floor": 4, "x": 3360, "y": 1490 },
+    { "id": "bldg5_4f_stairs_3", "name": "階段3", "type": "portal", "floor": 4, "x": 840, "y": 2010 },
+    { "id": "bldg5_4f_stairs_4", "name": "階段4", "type": "portal", "floor": 4, "x": 860, "y": 4300 },
+    { "id": "bldg5_4f_stairs_5", "name": "階段5", "type": "portal", "floor": 4, "x": 840, "y": 6840 },
+    { "id": "bldg5_4f_portal_east", "name": "東側連絡通路", "type": "portal", "floor": 4, "x": 2075, "y": 4045 },
+
+    // ==========================================
+    // 廊下（直線のスナップと斜め通路の維持）
+    // ==========================================
+    // 南エリア（階段5周辺 X: 1060）
+    { "id": "bldg5_4f_walk_07", "name": "南端行き止まり", "type": "walk", "floor": 4, "x": 1060, "y": 6990 },
+    { "id": "bldg5_4f_walk_06", "name": "階段5連絡", "type": "walk", "floor": 4, "x": 1060, "y": 6840 },
+    { "id": "bldg5_4f_walk_08", "name": "南通路北側", "type": "walk", "floor": 4, "x": 1060, "y": 6670 },
+
+    // 西側南北メイン通路（X: 1060）
+    { "id": "bldg5_4f_walk_09", "name": "階段4連絡", "type": "walk", "floor": 4, "x": 1060, "y": 4300 },
+    { "id": "bldg5_4f_walk_10", "name": "東側連絡分岐", "type": "walk", "floor": 4, "x": 1060, "y": 4045 },
+    { "id": "bldg5_4f_walk_12", "name": "斜め通路始点", "type": "walk", "floor": 4, "x": 1060, "y": 3310 },
+
+    // 斜め通路〜北側通路（X: 1170へシフト）
+    { "id": "bldg5_4f_walk_13", "name": "斜め通路終点", "type": "walk", "floor": 4, "x": 1170, "y": 3070 },
+    { "id": "bldg5_4f_walk_14", "name": "階段3連絡", "type": "walk", "floor": 4, "x": 1170, "y": 2010 },
+    { "id": "bldg5_4f_walk_15", "name": "北側交差点", "type": "walk", "floor": 4, "x": 1170, "y": 1150 },
+
+    // 北側東西メイン通路（Y: 1150に統一）
+    { "id": "bldg5_4f_walk_16", "name": "実験室前", "type": "walk", "floor": 4, "x": 3060, "y": 1150 },
+    { "id": "bldg5_4f_walk_17", "name": "東側分岐", "type": "walk", "floor": 4, "x": 3570, "y": 1150 },
+
+    // 東側（階段2周辺）
+    { "id": "bldg5_4f_walk_18", "name": "階段2連絡1", "type": "walk", "floor": 4, "x": 3570, "y": 1330 },
+    { "id": "bldg5_4f_walk_19", "name": "階段2前", "type": "walk", "floor": 4, "x": 3360, "y": 1330 }
+  ],
+  [
+    // ==========================================
+    // エッジ（道）の接続定義
+    // ==========================================
+    
+    // 南エリア（階段5周辺）
+    { "from": "bldg5_4f_walk_06", "to": "bldg5_4f_walk_07", "type": "walk" },
+    { "from": "bldg5_4f_stairs_5", "to": "bldg5_4f_walk_06", "type": "walk" },
+    { "from": "bldg5_4f_walk_08", "to": "bldg5_4f_walk_06", "type": "walk" },
+
+    // 【追加補正】階段5エリアと階段4エリアを繋ぐ（元のデータで途切れていた部分）
+    { "from": "bldg5_4f_walk_08", "to": "bldg5_4f_walk_09", "type": "walk" },
+
+    // 西側メイン通路（南から北へ）
+    { "from": "bldg5_4f_walk_09", "to": "bldg5_4f_walk_10", "type": "walk" },
+    { "from": "bldg5_4f_walk_09", "to": "bldg5_4f_stairs_4", "type": "walk" },
+    { "from": "bldg5_4f_walk_10", "to": "bldg5_4f_walk_12", "type": "walk" },
+
+    // 東側ポータル（渡り廊下）への接続
+    { "from": "bldg5_4f_walk_10", "to": "bldg5_4f_portal_east", "type": "walk" },
+
+    // 斜め通路
+    { "from": "bldg5_4f_walk_12", "to": "bldg5_4f_walk_13", "type": "walk" },
+
+    // 北側通路への連絡
+    { "from": "bldg5_4f_walk_13", "to": "bldg5_4f_walk_14", "type": "walk" },
+    { "from": "bldg5_4f_stairs_3", "to": "bldg5_4f_walk_14", "type": "walk" },
+    { "from": "bldg5_4f_walk_14", "to": "bldg5_4f_walk_15", "type": "walk" },
+
+    // 北側東西メイン通路（西から東へ）
+    { "from": "bldg5_4f_walk_15", "to": "bldg5_4f_walk_16", "type": "walk" },
+    { "from": "bldg5_4f_walk_16", "to": "bldg5_4f_room_lab", "type": "walk" },
+    { "from": "bldg5_4f_walk_16", "to": "bldg5_4f_walk_17", "type": "walk" },
+
+    // 階段2周辺へのクランク
+    { "from": "bldg5_4f_walk_17", "to": "bldg5_4f_walk_18", "type": "walk" },
+    { "from": "bldg5_4f_walk_18", "to": "bldg5_4f_walk_19", "type": "walk" },
+    { "from": "bldg5_4f_stairs_2", "to": "bldg5_4f_walk_19", "type": "walk" }
+  ]
+);
+
+// ==========================================
+// 棟をまたぐ連絡通路（渡り廊下）の接続データ
+// ==========================================
+const globalBridgeEdges = [
+  // 9号館2階(右上) ⇔ キャンパスプラザ2階(左下)
+  { "from": "bldg9_2f_portal_bridge", "to": "bldg_campplaza_2f_walk_10", "type": "bridge", "cost": 20 },
+
+  // キャンパスプラザ2階(右上) ⇔ 19号館2階(左下)
+  { "from": "bldg_campplaza_2f_walk_24", "to": "bldg19_2f_portal_campplaza", "type": "bridge", "cost": 15 },
+
+  // 19号館2階(右下) ⇔ 7号館2階(左下)
+  { "from": "bldg19_2f_portal_bldg7", "to": "bldg7_2f_portal_bldg19", "type": "bridge", "cost": 10 },
+
+  // 7号館2階(右上) ⇔ 5号館2階(西端)
+  { "from": "bldg7_2f_portal_bldg5", "to": "bldg5_2f_portal_bldg7", "type": "bridge", "cost": 10 }
+];
+
+// ==========================================
+// 階をまたぐ階段・エレベーターの接続データ（例）
+// ==========================================
+const globalStairsEdges = [
+  // 9号館の左階段（1F ⇔ 2F ⇔ 3F ⇔ 4F ⇔ 5F）
+  { "from": "bldg9_1f_stairs_left", "to": "bldg9_2f_stairs_left", "type": "stairs", "cost": 10 },
+  { "from": "bldg9_2f_stairs_left", "to": "bldg9_3f_stairs_left", "type": "stairs", "cost": 10 },
+  { "from": "bldg9_3f_stairs_left", "to": "bldg9_4f_stairs_left", "type": "stairs", "cost": 10 },
+  { "from": "bldg9_4f_stairs_left", "to": "bldg9_5f_stairs_left", "type": "stairs", "cost": 10 }
+  // ※同様に、中央階段、右階段、各棟のエレベーターの上下の繋がりもここに追記します
+];
+
+// ==========================================
+// 各建物の縮尺設定（1ピクセルあたりのメートル数）
+// ==========================================
+const BuildingScales = {
+  "bldg9": 75 / 5420,          // 約 0.0138 m/px
+  "bldg_campplaza": 55 / 3998, // 約 0.0138 m/px
+  "bldg19": 70 / 6450,         // 約 0.0109 m/px
+  "bldg7": 25 / 7807,          // 約 0.0032 m/px
+  "bldg5": 100 / 6285,         // 約 0.0159 m/px
+  "default": 0.01              // 判定できない場合のデフォルト値
+};
